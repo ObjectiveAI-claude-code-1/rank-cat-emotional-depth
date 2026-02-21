@@ -1,0 +1,111 @@
+{
+  "type": "vector.function",
+  "output_length": {
+    "$starlark": "len(input)"
+  },
+  "input_split": {
+    "$starlark": "[[item] for item in input]"
+  },
+  "input_merge": {
+    "$starlark": "[item for sublist in input for item in sublist]"
+  },
+  "input_schema": {
+    "type": "array",
+    "description": "A collection of cat pictures to be ranked by the depth of emotional feeling each one provokes. Each image is evaluated for emotional penetration, resonance with universal experience, and durability of feeling.",
+    "minItems": 2,
+    "items": {
+      "type": "image",
+      "description": "A photograph or image of a cat in any context, setting, or state of being. The image speaks entirely for itself — no captions, titles, or metadata are considered."
+    }
+  },
+  "tasks": [
+    {
+      "type": "vector.completion",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Show me a cat picture that reaches somewhere deep — not just cute or funny, but one that pushes past the surface and arrives at something I didn't expect to feel. I want an image that finds its way to the tender, unguarded places where real feeling lives. Something that tightens in the chest and doesn't immediately let go. Something connected to love, loss, fragility, or the quiet astonishment of being alive alongside another creature."
+            }
+          ]
+        }
+      ],
+      "responses": {
+        "$starlark": "[[item] for item in input]"
+      },
+      "output": {
+        "$jmespath": "output.scores"
+      }
+    },
+    {
+      "type": "vector.completion",
+      "messages": [
+        {
+          "role": "developer",
+          "content": [
+            {
+              "type": "text",
+              "text": "You are helping someone find images that transcend their subject matter. The best cat pictures are never really about cats — they are about what the cat, in that moment, in that light, in that posture, allows the viewer to recognize about their own life. Prefer images that connect to the shared emotional landscape of human experience: tenderness, vulnerability, innocence, companionship, wonder, aging, solitude, trust. The strongest images borrow the vocabulary of a cat's life to say something true about all life."
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "I'm looking for a cat picture that speaks to something universal — not just a charming snapshot of an animal, but one that reminds me of my own life. Show me an image where the cat, in its moment, gestures toward something larger than itself. Something that makes me think about what it means to be tender, to grow old, to trust, to keep someone company in the quiet hours."
+            }
+          ]
+        }
+      ],
+      "responses": {
+        "$starlark": "[[item] for item in input]"
+      },
+      "output": {
+        "$jmespath": "output.scores"
+      }
+    },
+    {
+      "type": "vector.completion",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "I've seen thousands of cat pictures but only a handful have ever truly stayed with me. Most are firecrackers — bright for a second, then gone. But a few come back unbidden while I'm washing dishes, or driving, or lying in the dark before sleep. I'm not looking for the funniest or the most impressive image."
+            }
+          ]
+        },
+        {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "text",
+              "text": "I understand. You want an image that works more like an ember than a firecracker — one that may not provoke the loudest initial reaction, but whose feeling continues to glow long after you've looked away. The kind that becomes part of your emotional furniture because it touched something true enough that your mind refuses to let it go. What kind of image would that be for you?"
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Exactly. Show me a cat picture I'll still be thinking about in a week — one that will resurface when I see my own cat sleeping, or notice the quality of late-afternoon light, or feel a sudden pang of tenderness I can't explain. The one that lodges itself somewhere and doesn't leave."
+            }
+          ]
+        }
+      ],
+      "responses": {
+        "$starlark": "[[item] for item in input]"
+      },
+      "output": {
+        "$jmespath": "output.scores"
+      }
+    }
+  ],
+  "description": "Ranks cat pictures by emotional depth, evaluating three qualities: emotional penetration (how far past a surface reaction the image reaches), resonance with universal experience (whether it gestures toward shared human feelings), and durability of feeling (whether the viewer carries it beyond the moment of looking)."
+}
